@@ -1,0 +1,41 @@
+// 啟用, 要添加屬性pattern
+// 基本語法 
+[0-9] [a-z] [A-Z] [.] [_] ...
+
+// 簡寫
+\d : [0-9]
+\w : [0-9a-zA-Z_]
+\s : 空白
+\D : [^0-9]
+\W : [^0-9a-zA-Z_]
+
+// 數量
+{N,M} : 至少要有N個, 不超過M個
+? : {0,1}
+* : {0,}
++ : {1,}
+
+// 特殊符號
+| : 或著
+
+
+// JS檢驗
+// 輸出boolem
+var format = /ci-15\d/i;
+var data = "Flight numbers: CI-123, CI-151, CI-156."; 
+var result = format.test(data);
+console.log(result); // true
+--> /i : 不分大小寫
+
+// 輸出通過的, 只會輸出第一個通過的
+var format = /ci-15\d/ig;
+var data = "Flight numbers: CI-123, CI-151, CI-156."; 
+var result = format.exec(data);
+console.log(result); // CI-151
+
+// 有通過的都輸出
+var format = /CI-15\d/g;
+var data = "Flight numbers: CI-123, CI-151, CI-156."; while ( ( result = format.exec(data) ) !== null ) {
+    alert(result);
+}
+--> /g : 通過的都顯示出來
