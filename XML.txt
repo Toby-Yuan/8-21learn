@@ -1,0 +1,62 @@
+// 1. 讀取XML檔案
+$doc = new DOMDocument();
+
+// 2. 如果讀取成功, 會分析
+$doc->loadXML($xmlString); 
+
+// 3. 告訴瀏覽器以XML執行
+header("Content-type: text/xml", true);
+
+// 4. c14n : Canonicalization(規範化, 就是output)
+echo $doc->c14n();
+
+// 2+3
+$doc->load("employees.xml");
+
+
+// 建立空的XML資料
+$doc = new DOMDocument("1.0", "utf-8");
+
+// 建立元素
+$root = $doc->createElement("HTML");
+$root2 = $doc->createElement("CSS");
+
+// 把建立的元素放在指定位置裡面
+$doc->appendChild($root);
+$root->appendChild($root2);
+
+
+// 另外儲存XML資料(裡面放位置和檔名)
+$doc->save("/tmp/employees_bak.xml");
+
+
+// 替代c14n
+echo $doc->saveXML();
+
+
+// 取得特定元素
+$employeeNodeList = $doc->getElementsByTagName("employee");
+
+// 取得特定元素屬性的值
+$node->getAttribute("EmpType")
+
+
+// XML可以用XPath(@ : 屬性)
+$xpath = new DOMXPath($doc);
+$entries = $xpath->query("/employees/employee/@EmpType");
+
+
+// 新增元素屬性
+$root->setAttribute("id", "001");
+or
+$xpath = new DOMXPath($doc);
+$entries = $xpath->query("/employees/employee[1]");
+$entries[0]->setAttribute("id", "001");
+
+// 更改元素內容
+$entries = $xpath->query("/employees/employee[1]/lastName");
+$entries[0]->nodeValue = "Tommy";
+
+// 刪除
+$entries = $xpath->query("/employees/employee[1]/firstName");
+$entries[0]->parentNode->removeChild($entries[0]);
